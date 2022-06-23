@@ -1,0 +1,41 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/jupyter-datascience-notebooks
+{
+	"name": "Awesomebk",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspace",
+	"containerEnv": {
+		"TZ": "Asia/Tokyo"
+	},
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"python.pythonPath": "/opt/conda/bin/python",
+				"python.languageServer": "Pylance",
+				"python.linting.enabled": true,
+				"python.linting.pylintEnabled": true,
+				"terminal.integrated.defaultProfile.linux": "bash",
+				"r.bracketedPaste": true,
+				"r.rterm.linux": "/opt/conda/bin/radian"
+			},
+			
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ikuyadeu.r",
+				"ionutvmi.path-autocomplete",
+			],
+		}
+	},
+
+	"forwardPorts": [5432]
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "sudo /opt/conda/bin/mamba install -y r-forecast r-depmixs4 r-bsts && sudo /opt/conda/bin/Rscript -e \"install.packages(c('timevis'), repos = 'http://cran.us.r-project.org')\"",
+
+	"remoteUser": "vscode"
+}

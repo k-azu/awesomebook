@@ -1,0 +1,35 @@
+version: '3.1'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - ..:/workspace:cached
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+    network_mode: service:db
+
+    # Uncomment the next line to use a non-root user for all processes.
+    # user: vscode
+
+    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+
+  db:
+    image: postgres:13
+    # container_name: awesomebk_code_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - awesomebk.data:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d
+      - ./csvs:/var/lib/postgresql/csvs
+    # ports:
+    #   - "5432:5432"
+
+volumes:
+  awesomebk.data:
